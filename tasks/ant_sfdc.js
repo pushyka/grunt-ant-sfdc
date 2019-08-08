@@ -166,9 +166,9 @@ module.exports = function(grunt) {
       var packageXml = buildPackageXml(this.data.pkg, this.data.pkgName, options.apiVersion);
       grunt.file.write(path.join(options.root,'/package.xml'), packageXml);
     }
-	  
-    if(this.data.destructivePkg) {
-      var destructiveXml = buildPackageXml(this.data.destructivePkg, this.data.pkgName, options.apiVersion);
+
+    if (options.destructivePkg) {
+      var destructiveXml = buildPackageXml(options.destructivePkg, this.data.pkgName, options.apiVersion);
       grunt.file.write(path.join(options.root,'/destructiveChanges.xml'), destructiveXml);
     }
 
