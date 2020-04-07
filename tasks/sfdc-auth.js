@@ -1,3 +1,4 @@
+
 'use strict';
 var grunt = require('grunt');
 var auth = module.exports = {};
@@ -38,7 +39,7 @@ auth.parseAuth = function(options, target) {
 
   function validateAuth(options) {
     var un = options.user;
-    var pw = options.pass;
+    var pw = escapeSpecialChars(options.pass);
     var tk = options.token;
     var sid = options.sessionid;
     var url = options.serverurl;
@@ -46,5 +47,13 @@ auth.parseAuth = function(options, target) {
     if(!un && !(sid && url)) { grunt.log.error('no username specified for ' + target); }
     if(!pw && !(sid && url)) { grunt.log.error('no password specified for ' + target); }
     if(!(sid && url) && !(un || pw)) {grunt.fail.warn('username/password error');}
+  }
+
+  function escapeSpecialChars(string) {
+    return string.replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&apos;');
   }
 };
